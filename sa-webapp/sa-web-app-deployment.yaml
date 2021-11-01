@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-web-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sa-web-app
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: sa-web-app
+    spec:
+      containers:
+      - image: hungchihhuang13/sentiment-analysis-webapp
+        imagePullPolicy: Always
+        name: sa-web-app
+        env:
+        - name: SA_LOGIC_API_URL
+          value: "http://192.168.49.2:31299/"
+        ports:
+        - containerPort: 8080
