@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app:  sa-frontend
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: sa-frontend
+    spec:
+      containers:
+      - image: hungchihhuang13/sentiment-analysis-frontend:minikube2
+        imagePullPolicy: Always
+        name: sa-frontend
+        ports:
+        - containerPort: 80

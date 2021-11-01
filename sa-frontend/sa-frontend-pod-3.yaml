@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sa-frontend-3
+  labels:
+    app: sa-frontend
+spec:
+  containers:
+    - image: hungchihhuang13/sentiment-analysis-frontend
+      name: sa-frontend
+      ports:
+      - containerPort: 80
